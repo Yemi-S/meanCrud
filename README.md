@@ -1,6 +1,6 @@
 # MeanCrud
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5. It uses MEAN stack (Angular, Node, Express y MongoDB).
 
 ## Development server
 
