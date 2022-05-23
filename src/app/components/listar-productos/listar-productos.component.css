@@ -1,5 +1,9 @@
-
 .fa-solid{
     cursor: pointer;
     margin-left: 7px;
+}
+
+.tabla-vacia{
+    text-align: start;
+    margin-top: 10px;
 }

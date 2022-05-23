@@ -5,7 +5,7 @@
                 <div class="card-body text-center">
                     <span class="titulo">LISTADO DE PRODUCTOS</span>
                     <button class="btn btn-success float-end" routerLink="/crear-producto">NUEVO</button>
-                    <table class="table table-striped mt-3">
+                    <table *ngIf="listaProductos.length > 0" class="table table-striped mt-3">
                         <thead>
                           <tr>
                             <th scope="col">Producto</th>
@@ -16,28 +16,19 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>Coca Cola</td>
-                            <td>Bebida</td>
-                            <td>Buenos aires</td>
-                            <td>2</td>
+                          <tr *ngFor="let producto of listaProductos">
+                            <td>{{producto.nombre}}</td>
+                            <td>{{producto.categoria}}</td>
+                            <td>{{producto.ubicacion}}</td>
+                            <td>{{producto.precio | currency :'USD'}}</td>
                             <td>
                                 <i class="fa-solid fa-pen-to-square text-primary"></i>
-                                <i class="fa-solid fa-trash text-danger"></i>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Malboro 20</td>
-                            <td>Cigarrillos</td>
-                            <td>Barcelona</td>
-                            <td>2</td>
-                            <td>
-                                <i class="fa-solid fa-pen-to-square text-primary"></i>
-                                <i class="fa-solid fa-trash text-danger"></i>
+                                <i (click)="eliminarProducto(producto._id)" class="fa-solid fa-trash text-danger"></i>
                             </td>
                           </tr>
                         </tbody>
                       </table>
+                      <h5 class="tabla-vacia" *ngIf="listaProductos.length == 0">No hay productos</h5>
                 </div>
             </div>
         </div>
