@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { tap } from 'rxjs/operators';
 import { Producto } from 'src/app/models/producto';
+import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
   selector: 'app-crear-producto',
@@ -13,7 +15,8 @@ export class CrearProductoComponent implements OnInit {
   productoForm: FormGroup;
   constructor(private fb: FormBuilder,
               private router: Router, 
-              private toastr: ToastrService) { 
+              private toastr: ToastrService,
+              private productoSvc: ProductoService) { 
     this.productoForm = this.fb.group({
       producto: ['', Validators.required],
       categoria: ['', Validators.required],
@@ -33,8 +36,12 @@ export class CrearProductoComponent implements OnInit {
       ubicacion: this.productoForm.get('ubicacion')?.value,
       precio: this.productoForm.get('precio')?.value,
     }
-    this.toastr.success('El producto fue registrado con éxito!','Producto Registrado');
-    this.router.navigate(['/']);
-  }
 
+    this.productoSvc.guardarProducto(productoData).pipe(
+      tap(()=>this.toastr.success('El producto fue registrado con éxito!','Producto Registrado')),
+      tap(()=>this.router.navigate(['/'])),
+    ).subscribe({
+      error : (error)=>console.log(error)  
+    });
+  }
 }
